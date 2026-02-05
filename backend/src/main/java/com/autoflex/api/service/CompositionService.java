@@ -4,6 +4,7 @@ import com.autoflex.api.dto.CompositionRequestDTO;
 import com.autoflex.api.entity.Product;
 import com.autoflex.api.entity.ProductComposition;
 import com.autoflex.api.entity.RawMaterial;
+import com.autoflex.api.exception.ResourceNotFoundException;
 import com.autoflex.api.repository.ProductCompositionRepository;
 import com.autoflex.api.repository.ProductRepository;
 import com.autoflex.api.repository.RawMaterialRepository;
@@ -28,10 +29,10 @@ public class CompositionService {
     @Transactional
     public void addMaterialToProduct(CompositionRequestDTO dto) {
         Product product = productRepository.findById(dto.productId())
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with ID: " + dto.productId()));
 
         RawMaterial material = materialRepository.findById(dto.rawMaterialId())
-                .orElseThrow(() -> new RuntimeException("Material not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Materia not found with ID: " + dto.rawMaterialId()));
 
         ProductComposition composition = new ProductComposition();
         composition.setProduct(product);
