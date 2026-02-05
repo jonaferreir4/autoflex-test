@@ -27,6 +27,18 @@ export const addComposition = createAsyncThunk('products/addComposition', async 
   return; 
 });
 
+export const updateProduct = createAsyncThunk( 'products/updateProduct', async ({ id, data }: { id: number; data: Omit<Product, 'id'> }) => {
+    const response = await api.put(`/products/${id}`, data);
+    return response.data;
+  }
+);
+
+export const deleteProduct = createAsyncThunk('products/deleteProduct', async (id: number) => {
+    await api.delete(`/products/${id}`);
+    return id;
+  }
+);
+
 
 const productsSlice = createSlice({
   name: 'products',
@@ -47,7 +59,18 @@ const productsSlice = createSlice({
       })
       .addCase(addComposition.fulfilled, () => {
        
+      })
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        const index = state.items.findIndex(p => p.id === action.payload.id);
+        if (index !== -1) {
+          state.items[index] = action.payload;
+        }
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.items = state.items.filter(p => p.id !== action.payload);
       });
+    
+      
   },
 });
 
