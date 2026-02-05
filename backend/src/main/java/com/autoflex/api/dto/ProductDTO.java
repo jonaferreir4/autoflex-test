@@ -1,4 +1,9 @@
 package com.autoflex.api.dto;
 
-public record ProductDTO() {
-}
+import java.math.BigDecimal;
+
+public record ProductDTO(
+        Long id,
+        String name,
+        BigDecimal value
+) {}
