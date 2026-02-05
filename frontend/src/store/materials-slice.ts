@@ -22,6 +22,18 @@ export const addMaterial = createAsyncThunk('materials/addMaterial', async (newM
   return response.data;
 });
 
+export const updateMaterial = createAsyncThunk( 'materials/updateMaterial', async ({ id, data }: { id: number; data: Omit<RawMaterial, 'id'> }) => {
+    const response = await api.put(`/raw-materials/${id}`, data);
+    return response.data;
+  }
+);
+
+export const deleteMaterial = createAsyncThunk('materials/deleteMaterial', async (id: number) => {
+    await api.delete(`/raw-materials/${id}`);
+    return id;
+  }
+);
+
 const materialsSlice = createSlice({
   name: 'materials',
   initialState,
@@ -37,6 +49,16 @@ const materialsSlice = createSlice({
       })
       .addCase(addMaterial.fulfilled, (state, action) => {
         state.items.push(action.payload);
+      })
+
+      .addCase(updateMaterial.fulfilled, (state, action) => {
+        const index = state.items.findIndex((material) => material.id === action.payload.id);
+        if (index !== -1) {
+          state.items[index] = action.payload;
+        }
+      })
+      .addCase(deleteMaterial.fulfilled, (state, action) => {
+        state.items = state.items.filter((material) => material.id !== action.payload);
       });
   },
 });
