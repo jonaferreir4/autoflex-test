@@ -38,6 +38,17 @@ public class ProductController {
         return ResponseEntity.created(uri).body(saved);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
+        return ResponseEntity.ok(productService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        productService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/{id}/composition")
     public ResponseEntity<Void> addComposition(@PathVariable Long id, @RequestBody CompositionRequestDTO dto) {
         if (!id.equals(dto.productId())) {
