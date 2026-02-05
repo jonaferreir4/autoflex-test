@@ -14,7 +14,7 @@ public class RawMaterial {
 
     @Column(nullable = false)
     private String name;
-    
+
     @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity;
 }
