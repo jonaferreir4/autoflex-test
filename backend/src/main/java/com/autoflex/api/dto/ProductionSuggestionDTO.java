@@ -1,4 +1,9 @@
 package com.autoflex.api.dto;
 
-public record ProductionSuggestionDTO() {
-}
+import java.math.BigDecimal;
+
+public record ProductionSuggestionDTO(
+        String productName,
+        Integer quantity,
+        BigDecimal totalValue
+) {}
