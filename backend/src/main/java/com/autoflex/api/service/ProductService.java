@@ -2,6 +2,7 @@ package com.autoflex.api.service;
 
 import com.autoflex.api.dto.ProductDTO;
 import com.autoflex.api.entity.Product;
+import com.autoflex.api.exception.ResourceNotFoundException;
 import com.autoflex.api.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,5 +32,25 @@ public class ProductService {
 
         Product saved = repository.save(entity);
         return new ProductDTO(saved.getId(), saved.getName(), saved.getValue());
+    }
+
+    @Transactional
+    public ProductDTO update(Long id, ProductDTO dto) {
+        Product entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with ID: " + id));
+
+        entity.setName(dto.name());
+        entity.setValue(dto.value());
+
+        Product saved = repository.save(entity);
+        return new ProductDTO(saved.getId(), saved.getName(), saved.getValue());
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Product not found with ID: " + id);
+        }
+        repository.deleteById(id);
     }
 }
