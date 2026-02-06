@@ -11,7 +11,8 @@ export function RawMaterials() {
   const dispatch = useAppDispatch();
   const { items, status } = useAppSelector((state) => state.materials);
 
-  const { 
+  const {
+    code, setCode,
     name, setName, 
     qty, setQty, 
     editingId, 
@@ -34,7 +35,9 @@ export function RawMaterials() {
     <div className="p-6 max-w-5xl mx-auto">
       <PageHeader title="Matérias-Primas" icon={Package} />
       
-      <RawMaterialForm 
+      <RawMaterialForm
+        code={code}
+        setCode={setCode}
         name={name}
         setName={setName}
         qty={qty}
