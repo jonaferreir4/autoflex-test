@@ -31,20 +31,20 @@ function Layout() {
         <nav className="space-y-2">
           <NavLink to="/" icon={LayoutDashboard}>Dashboard</NavLink>
           <NavLink to="/products" icon={ShoppingCart}>Produtos</NavLink>
-          <NavLink to="/materials" icon={Package}>Matérias-Primas</NavLink>
+          <NavLink to="/raw-materials" icon={Package}>Matérias-Primas</NavLink>
         </nav>
       </aside>
 
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-3 z-10">
           <Link to="/" className="p-2"><LayoutDashboard /></Link>
           <Link to="/products" className="p-2"><ShoppingCart /></Link>
-          <Link to="/materials" className="p-2"><Package /></Link>
+          <Link to="/raw-materials" className="p-2"><Package /></Link>
       </div>
 
       <main className="flex-1 overflow-auto">
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/materials" element={<RawMaterials />} />
+          <Route path="/raw-materials" element={<RawMaterials />} />
           <Route path="/products" element={<Products />} />
         </Routes>
       </main>
