@@ -3,6 +3,7 @@ package com.autoflex.api.service;
 import com.autoflex.api.dto.ProductDTO;
 import com.autoflex.api.entity.Product;
 import com.autoflex.api.exception.ResourceNotFoundException;
+import com.autoflex.api.repository.ProductCompositionRepository;
 import com.autoflex.api.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,9 +14,11 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository repository;
+    private final ProductCompositionRepository compositionRepository;
 
-    public ProductService(ProductRepository repository) {
+    public ProductService(ProductRepository repository, ProductCompositionRepository compositionRepository) {
         this.repository = repository;
+        this.compositionRepository = compositionRepository;
     }
 
     public List<ProductDTO> findAll() {
@@ -53,6 +56,7 @@ public class ProductService {
         if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("Product not found with ID: " + id);
         }
+        compositionRepository.deleteByProductId(id);
         repository.deleteById(id);
     }
 }
