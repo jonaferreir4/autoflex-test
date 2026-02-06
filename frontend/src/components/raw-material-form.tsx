@@ -1,6 +1,8 @@
 import { Plus, Save, X } from 'lucide-react';
 
 interface Props {
+  code: string;
+  setCode: (val: string) => void;
   name: string;
   setName: (val: string) => void;
   qty: string;
@@ -10,7 +12,7 @@ interface Props {
   onCancel: () => void;
 }
 
-export function RawMaterialForm({ name, setName, qty, setQty, editingId, onSubmit, onCancel }: Props) {
+export function RawMaterialForm({ code, setCode, name, setName, qty, setQty, editingId, onSubmit, onCancel }: Props) {
   return (
     <form 
       onSubmit={onSubmit} 
@@ -18,6 +20,15 @@ export function RawMaterialForm({ name, setName, qty, setQty, editingId, onSubmi
         editingId ? 'bg-amber-50 border-amber-500' : 'bg-white border-blue-500'
       }`}
     >
+      <div className="w-32">
+        <label className="block text-sm font-medium text-gray-700 mb-1">Código</label>
+        <input 
+          className="border p-2 rounded w-full outline-none focus:ring-2 focus:ring-blue-500" 
+          value={code} onChange={e => setCode(e.target.value)} 
+          placeholder="MAT-01" required 
+        />
+      </div>
+
       <div className="flex-1">
         <label className="block text-sm font-medium text-gray-700 mb-1">
           {editingId ? 'Editando Nome' : 'Novo Nome'}
