@@ -14,6 +14,7 @@ export function Products() {
   const { items: materials } = useAppSelector((state) => state.materials);
 
   const { 
+    code, setCode,
     name, setName, 
     value, setValue, 
     editingId, 
@@ -39,6 +40,16 @@ export function Products() {
           editingId ? 'bg-amber-50 border-amber-500' : 'bg-white border-green-500'
         }`}
       >
+
+        <div className="w-32">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Código</label>
+          <input 
+            className="border p-2 rounded w-full outline-none focus:ring-2 focus:ring-green-500" 
+            value={code} onChange={e => setCode(e.target.value)} 
+            required placeholder="SKU-01" 
+          />
+        </div>
+        
         <div className="flex-1">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             {editingId ? 'Editar Produto' : 'Novo Produto'}
