@@ -66,6 +66,7 @@ public class OptimizationService {
                 BigDecimal totalValue = product.getValue().multiply(BigDecimal.valueOf(maxPossibleUnits));
 
                 suggestions.add(new ProductionSuggestionDTO(
+                        product.getCode(),
                         product.getName(),
                         maxPossibleUnits,
                         totalValue
