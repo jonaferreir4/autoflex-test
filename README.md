@@ -85,7 +85,7 @@ A maneira mais fácil de rodar a aplicação é utilizando o Docker Compose, que
     - Backend API: <http://localhost:8080>
     - Banco de Dados: Porta 5432
 
-> Nota:  O banco de dados será criado e populado automaticamente pelas migrações do Flyway.
+> Nota:  O banco de dados será criado automaticamente pelas migrações do Flyway.
 
 ## Testes Automatizados (Cypress)
 
