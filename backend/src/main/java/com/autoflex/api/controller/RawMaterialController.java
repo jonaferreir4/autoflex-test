@@ -33,4 +33,15 @@ public class RawMaterialController {
                 .toUri();
         return ResponseEntity.created(uri).body(saved);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<RawMaterialDTO> update(@PathVariable Long id, @RequestBody RawMaterialDTO dto) {
+        return ResponseEntity.ok(service.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
