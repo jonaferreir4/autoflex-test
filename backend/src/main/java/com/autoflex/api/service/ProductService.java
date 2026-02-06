@@ -20,18 +20,19 @@ public class ProductService {
 
     public List<ProductDTO> findAll() {
         return repository.findAll().stream()
-                .map(p -> new ProductDTO(p.getId(), p.getName(), p.getValue()))
+                .map(p -> new ProductDTO(p.getId(), p.getCode(), p.getName(), p.getValue()))
                 .toList();
     }
 
     @Transactional
     public ProductDTO save(ProductDTO dto) {
         Product entity = new Product();
+        entity.setCode(dto.code());
         entity.setName(dto.name());
         entity.setValue(dto.value());
 
         Product saved = repository.save(entity);
-        return new ProductDTO(saved.getId(), saved.getName(), saved.getValue());
+        return new ProductDTO(saved.getId(), saved.getCode(), saved.getName(), saved.getValue());
     }
 
     @Transactional
@@ -39,11 +40,12 @@ public class ProductService {
         Product entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with ID: " + id));
 
+        entity.setCode(dto.code());
         entity.setName(dto.name());
         entity.setValue(dto.value());
 
         Product saved = repository.save(entity);
-        return new ProductDTO(saved.getId(), saved.getName(), saved.getValue());
+        return new ProductDTO(saved.getId(), saved.getCode(), saved.getName(), saved.getValue());
     }
 
     @Transactional
