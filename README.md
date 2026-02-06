@@ -53,15 +53,16 @@ A maneira mais fácil de rodar a aplicação é utilizando o Docker Compose, que
    git clone https://github.com/jonaferreir4/autoflex-test
    cd autoflex
    ```
+2. Crie um arquivo .env, copie e cole o conteúdo do arquivo .env.exemple dentro dele.
 
-2. Execute o Docker Compose:
+3. Execute o Docker Compose:
    ```bash
     docker compose up --build
    ```
 
-3. Aguarde os containers subirem. O sistema estará disponível em:
+4. Aguarde os containers subirem. O sistema estará disponível em:
     
-    - Frontend: http://localhost:3000
+    - Frontend: http://localhost:5173
     - Backend API: http://localhost:8080
     - Banco de Dados: Porta 5432
 
