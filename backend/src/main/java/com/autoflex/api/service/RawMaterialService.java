@@ -20,18 +20,19 @@ public class RawMaterialService {
 
     public List<RawMaterialDTO> findAll() {
         return repository.findAll().stream()
-                .map(m -> new RawMaterialDTO(m.getId(), m.getName(), m.getStockQuantity()))
+                .map(m -> new RawMaterialDTO(m.getId(), m.getCode(), m.getName(), m.getStockQuantity()))
                 .toList();
     }
 
     @Transactional
     public RawMaterialDTO save(RawMaterialDTO dto) {
         RawMaterial entity = new RawMaterial();
+        entity.setCode(dto.code()); // Mapeando Código
         entity.setName(dto.name());
         entity.setStockQuantity(dto.stockQuantity());
 
         RawMaterial saved = repository.save(entity);
-        return new RawMaterialDTO(saved.getId(), saved.getName(), saved.getStockQuantity());
+        return new RawMaterialDTO(saved.getId(), saved.getCode(), saved.getName(), saved.getStockQuantity());
     }
 
     @Transactional
@@ -39,11 +40,12 @@ public class RawMaterialService {
         RawMaterial entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Material not found with ID: " + id));
 
+        entity.setCode(dto.code());
         entity.setName(dto.name());
         entity.setStockQuantity(dto.stockQuantity());
         RawMaterial updated = repository.save(entity);
 
-        return new RawMaterialDTO(updated.getId(), updated.getName(), updated.getStockQuantity());
+        return new RawMaterialDTO(updated.getId(), updated.getCode(), updated.getName(), updated.getStockQuantity());
     }
 
     @Transactional
@@ -51,7 +53,6 @@ public class RawMaterialService {
         if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("Material not found with ID: " + id);
         }
-
         repository.deleteById(id);
     }
 }
