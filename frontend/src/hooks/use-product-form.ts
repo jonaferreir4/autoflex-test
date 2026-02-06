@@ -26,6 +26,11 @@ export function useProductForm() {
     setValue('');
   };
 
+  const generateCode = () => {
+    const randomNum = Math.floor(1000 + Math.random() * 9000);
+    setCode(`SKU-${randomNum}`);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const payload = { code, name, value: Number(value) };
@@ -46,6 +51,7 @@ export function useProductForm() {
     editingId,
     handleSubmit,
     startEditing,
-    cancelEditing
+    cancelEditing,
+    generateCode,
   };
 }
