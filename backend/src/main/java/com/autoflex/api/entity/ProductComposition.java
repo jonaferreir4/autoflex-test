@@ -5,7 +5,9 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "product_compositions")
+@Table(name = "product_compositions", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"product_id", "raw_material_id"})
+})
 public class ProductComposition {
 
     @Id
