@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ShoppingCart, Plus, Save, X, Wand2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { fetchProducts } from '../store/products-slice';
@@ -12,6 +12,8 @@ export function Products() {
   const dispatch = useAppDispatch();
   const { items: products, status } = useAppSelector((state) => state.products);
   const { items: materials } = useAppSelector((state) => state.materials);
+
+  const [expandedId, setExpandedId] = useState<number | null>(null);
 
   const { 
     code, setCode,
@@ -31,6 +33,10 @@ export function Products() {
     }
   }, [dispatch, status]);
 
+  const toggleExpand = (id: number) => {
+    setExpandedId(current => current === id ? null : id);
+  };
+
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <PageHeader title="Produtos" icon={ShoppingCart} />
@@ -41,8 +47,7 @@ export function Products() {
           editingId ? 'bg-amber-50 border-amber-500' : 'bg-white border-green-500'
         }`}
       >
-
-       <div className="w-40">
+        <div className="w-40">
           <label className="block text-sm font-medium text-gray-700 mb-1">Código</label>
           <div className="flex gap-1">
             <input 
@@ -105,13 +110,15 @@ export function Products() {
       </form>
 
       {status === 'loading' ? <Loader /> : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start">
           {products.map(product => (
             <ProductCard 
               key={product.id} 
               product={product} 
               materials={materials}
-              onEdit={startEditing} 
+              onEdit={startEditing}
+              isExpanded={expandedId === product.id}
+              onToggle={() => toggleExpand(product.id)}
             />
           ))}
         </div>
