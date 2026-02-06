@@ -50,7 +50,7 @@ A maneira mais fácil de rodar a aplicação é utilizando o Docker Compose, que
 
 1. Clone o repositório:
    ```bash
-   git clone <seu-repo-url>
+   git clone https://github.com/jonaferreir4/autoflex-test
    cd autoflex
    ```
 
