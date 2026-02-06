@@ -6,8 +6,12 @@ import { TrendingUp, RefreshCw } from 'lucide-react';
 export function Dashboard() {
   const [suggestions, setSuggestions] = useState<ProductionSuggestion[]>([]);
   const [totalValue, setTotalValue] = useState(0);
+  
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadSuggestion = async () => {
+    setIsLoading(true);
+    
     try {
       const res = await api.get('/production/suggestion');
       setSuggestions(res.data);
@@ -15,6 +19,8 @@ export function Dashboard() {
       setTotalValue(total);
     } catch (error) {
       console.error("Erro ao carregar sugestão", error);
+    } finally {
+      setTimeout(() => setIsLoading(false), 300); 
     }
   };
 
@@ -26,8 +32,14 @@ export function Dashboard() {
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <TrendingUp /> Sugestão de Produção (Otimizada)
         </h1>
-        <button onClick={loadSuggestion} className="flex items-center gap-2 text-blue-600 hover:underline">
-          <RefreshCw size={16} /> Recalcular
+        
+        <button 
+          onClick={loadSuggestion} 
+          disabled={isLoading}
+          className={`flex items-center gap-2 text-blue-600 hover:underline transition-all ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+        >
+          <RefreshCw size={16} className={isLoading ? "animate-spin" : ""} /> 
+          {isLoading ? "Recalculando..." : "Recalcular"}
         </button>
       </div>
 
