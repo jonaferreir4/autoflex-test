@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ShoppingCart, Plus, Save, X } from 'lucide-react';
+import { ShoppingCart, Plus, Save, X, Wand2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { fetchProducts } from '../store/products-slice';
 import { fetchMaterials } from '../store/materials-slice';
@@ -20,7 +20,8 @@ export function Products() {
     editingId, 
     handleSubmit, 
     startEditing, 
-    cancelEditing 
+    cancelEditing,
+    generateCode,
   } = useProductForm();
 
   useEffect(() => {
@@ -41,13 +42,25 @@ export function Products() {
         }`}
       >
 
-        <div className="w-32">
+       <div className="w-40">
           <label className="block text-sm font-medium text-gray-700 mb-1">Código</label>
-          <input 
-            className="border p-2 rounded w-full outline-none focus:ring-2 focus:ring-green-500" 
-            value={code} onChange={e => setCode(e.target.value)} 
-            required placeholder="SKU-01" 
-          />
+          <div className="flex gap-1">
+            <input 
+              className="border p-2 rounded w-full outline-none focus:ring-2 focus:ring-green-500 font-mono uppercase" 
+              value={code} onChange={e => setCode(e.target.value)} 
+              required placeholder="SKU-XXXX" 
+            />
+            {!editingId && (
+              <button 
+                type="button" 
+                onClick={generateCode}
+                className="bg-gray-100 hover:bg-gray-200 text-gray-600 p-2 rounded border border-gray-200"
+                title="Gerar SKU Automático"
+              >
+                <Wand2 size={18} />
+              </button>
+            )}
+          </div>
         </div>
         
         <div className="flex-1">
