@@ -5,8 +5,8 @@ Este projeto é uma solução Fullstack desenvolvida como teste prático. O sist
 ##  Tecnologias Utilizadas
 
 ### Backend
-- **Java 17+**
-- **Spring Boot 3** (Web, JPA, Validation)
+- **Java 21**
+- **Spring Boot 4** (Web, JPA, Validation)
 - **PostgreSQL** (Banco de Dados)
 - **Flyway** (Migração de Banco de Dados)
 - **Docker** (Containerização)
