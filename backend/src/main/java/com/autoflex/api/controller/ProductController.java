@@ -1,5 +1,6 @@
 package com.autoflex.api.controller;
 
+import com.autoflex.api.dto.CompositionItemDTO;
 import com.autoflex.api.dto.CompositionRequestDTO;
 import com.autoflex.api.dto.ProductDTO;
 import com.autoflex.api.service.CompositionService;
@@ -55,6 +56,17 @@ public class ProductController {
             throw new IllegalArgumentException("The URL ID differs from the request body");
         }
         compositionService.addMaterialToProduct(dto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/composition")
+    public ResponseEntity<List<CompositionItemDTO>> getComposition(@PathVariable Long id) {
+        return ResponseEntity.ok(compositionService.getComposition(id));
+    }
+
+    @DeleteMapping("/{id}/composition/{materialId}")
+    public ResponseEntity<Void> removeComposition(@PathVariable Long id, @PathVariable Long materialId) {
+        compositionService.removeMaterialFromProduct(id, materialId);
         return ResponseEntity.noContent().build();
     }
 }
