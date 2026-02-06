@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ProductCompositionRepository extends JpaRepository<ProductComposition, Long> {
     List<ProductComposition> findByProductId(Long productId);
-
     Optional<ProductComposition> findByProductIdAndRawMaterialId(Long productId, Long rawMaterialId);
+    void deleteByProductId(Long productId);
 }
