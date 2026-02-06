@@ -1,6 +1,7 @@
 import { Pencil, Trash2 } from 'lucide-react';
 import type { RawMaterial } from '../types';
 import { Loader } from './loader';
+
 interface Props {
   items: RawMaterial[];
   status: string;
@@ -18,6 +19,7 @@ export function RawMaterialList({ items, status, onEdit, onDelete }: Props) {
           <thead className="bg-gray-50 text-gray-600 uppercase text-xs tracking-wider">
             <tr>
               <th className="p-4 border-b">ID</th>
+              <th className="p-4 border-b">Código</th>
               <th className="p-4 border-b">Nome</th>
               <th className="p-4 border-b">Estoque Atual</th>
               <th className="p-4 border-b text-right">Ações</th>
@@ -27,6 +29,7 @@ export function RawMaterialList({ items, status, onEdit, onDelete }: Props) {
             {items.map(m => (
               <tr key={m.id} className="hover:bg-gray-50 transition-colors">
                 <td className="p-4 text-gray-500">#{m.id}</td>
+                <td className="p-4 font-mono text-xs text-gray-600 bg-gray-50 rounded w-min whitespace-nowrap px-2">{m.code}</td>
                 <td className="p-4 font-medium text-gray-800">{m.name}</td>
                 <td className="p-4">
                   <span className={`px-2 py-1 rounded text-xs font-bold ${m.stockQuantity > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
@@ -45,7 +48,7 @@ export function RawMaterialList({ items, status, onEdit, onDelete }: Props) {
             ))}
             {items.length === 0 && status === 'succeeded' && (
               <tr>
-                <td colSpan={4} className="p-8 text-center text-gray-500">Nenhuma matéria-prima cadastrada.</td>
+                <td colSpan={5} className="p-8 text-center text-gray-500">Nenhuma matéria-prima cadastrada.</td>
               </tr>
             )}
           </tbody>
