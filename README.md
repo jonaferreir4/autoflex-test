@@ -42,7 +42,7 @@ Este projeto é uma solução Fullstack desenvolvida como teste prático. O sist
 
 ---
 
-## Como Executar (Recomendado: Docker)
+## Como Executar (Docker)
 
 A maneira mais fácil de rodar a aplicação é utilizando o Docker Compose, que sobe o Banco de Dados, o Backend e o Frontend simultaneamente.
 
