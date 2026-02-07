@@ -99,7 +99,13 @@ O projeto conta com testes End-to-End (E2E) que simulam o fluxo real do usuário
    cd frontend
     ```
 
-2. Execute os testes:
+2. Instale as dependências de desenvolvimento:
+
+    ```bash
+   npm install
+    ```
+
+3. Execute os testes:
 
     Modo Interativo (Recomendado): Abre a interface visual do Cypress para você assistir os testes rodando.
 
